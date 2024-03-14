@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latihan</title>
+
+    <!-- Link CDN React -->
+    <script src="https://unpkg.com/react/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      class PomBensinComponent extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = {
+            jenisBensin: 'premium',
+            price: 0,
+          };
+        }
+
+        updateName = (newJenisBensin) => {
+          this.setState({ jenisBensin: newJenisBensin });
+          this.updatePrice(newJenisBensin);
+        };
+
+        updatePrice = (newJenisBensin) => {
+          let price = 0;
+
+          if (newJenisBensin === 'premium') {
+            price = 1000;
+          } else if (newJenisBensin === 'pertalite') {
+            price = 12000;
+          } else if (newJenisBensin === 'pertamax') {
+            price = 15000;
+          }
+
+          this.setState({ price: price });
+        };
+
+        render() {
+          return (
+            <div>
+              <h2>Data POM Bensin</h2>
+              <p>Jenis Bensin: {this.state.jenisBensin}</p>
+              <p>Harga: {this.state.price}</p>
+
+              <label htmlFor="jenisBensin">Pilih Jenis Bensin:</label>
+              <select id="jenisBensin" onChange={(e) => this.updateName(e.target.value)}>
+                <option value="premium">Premium</option>
+                <option value="pertalite">Pertalite</option>
+                <option value="pertamax">Pertamax</option>
+              </select>
+            </div>
+          );
+        }
+      }
+
+      ReactDOM.render(<PomBensinComponent />, document.getElementById('root'));
+    </script>
+  </body>
+</html>
